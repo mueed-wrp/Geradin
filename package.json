@@ -7,7 +7,9 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"deploy:test:pixiradio": "PROD=false npx hardhat --network testnet run scripts/deploy.ts",
-		"deploy:prod:pixiradio": "PROD=true npx hardhat --network mainnet run scripts/deploy.ts"
+		"deploy:prod:pixiradio": "PROD=true npx hardhat --network mainnet run scripts/deploy.ts",
+		"verify:test:pixiradio": "PROD=false npx hardhat --network testnet run scripts/verify.ts",
+		"verify:prod:pixiradio": "PROD=true npx hardhat --network mainnet run scripts/verify.ts"
 	},
 	"dependencies": {
 		"@nomiclabs/hardhat-etherscan": "^3.1.3",

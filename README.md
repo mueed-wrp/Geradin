@@ -17,3 +17,11 @@
 ### To Deploy on Mainnet
 
 - npm run deploy:prod:pixiradio
+
+### To Deploy on testnet
+
+- npm run verify:test:pixiradio
+
+### To Deploy on Mainnet
+
+- npm run verify:prod:pixiradio

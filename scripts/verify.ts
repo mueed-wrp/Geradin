@@ -6,44 +6,35 @@ const hre = require("hardhat");
 const request = require("request");
 
 async function main() {
-	const PixiRadio = await ethers.getContractFactory("PixiRadio");
-	const pixiRadio = (await PixiRadio.deploy(
-		configService.getValue("CAP"),
-		configService.getValue("REWARD")
-	)) as PixiRadio;
-	await pixiRadio.deployed();
-	console.log(" pixiRadio deployed at : ", pixiRadio.address);
+	const args = [
+		parseInt(configService.getValue("CAP", true)),
+		parseInt(configService.getValue("REWARD", true)),
+	];
 
-	await sleep(20);
-
-	await verify(pixiRadio.address, [
-		configService.getValue("CAP"),
-		configService.getValue("REWARD"),
-	]);
+	await verify(configService.getValue("CONTRACT_ADDRESS"), args);
 }
 
 async function verify(address: string, args: any[]) {
-	console.log("Verifying contract...");
+	await sleep(2);
+
+	console.log("---> Verifying contract...");
 
 	try {
 		await run("verify:verify", {
 			address: address,
 			constructorArguments: args,
 		});
-
-		console.log("Verified");
+		console.log("---> Verified");
 	} catch (e: any) {
 		if (e.message.toLowerCase().includes("already verified")) {
-			console.log("Already Verified");
+			console.log("---> Already Verified");
 		}
 	}
-
-	await sleep(10);
 }
 
 async function sleep(s: number) {
 	return new Promise((resolve) => {
-		console.log(`\nwaiting for ${s}\n`);
+		console.log(`\nwaiting for ${s} seconds\n`);
 		setTimeout(resolve, s * 1000);
 	});
 }
